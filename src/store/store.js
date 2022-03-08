@@ -1,18 +1,19 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-import actions from '@/store/actions'
-import getters from '@/store/getters'
-import mutations from '@/store/mutations'
+import actions from "@/store/actions";
+import getters from "@/store/getters";
+import mutations from "@/store/mutations";
 
 export const store = new Vuex.Store({
-	state: {
-		peminjam: {},
-		peminjamanData: [],
-	},
-	getters,
-	mutations,
-	actions,
-})
+  state: {
+    peminjam: {},
+    peminjamanData: [],
+    imagePeminjam: "",
+  },
+  getters,
+  mutations,
+  actions,
+});

@@ -20,3 +20,9 @@
 
 	height: 40px;
 }
+
+textarea{
+	&.form-control{
+		height: 200px;
+	}
+}

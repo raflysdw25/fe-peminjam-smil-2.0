@@ -1,10 +1,13 @@
-import * as types from '@/store/types'
+import * as types from "@/store/types";
 
 export default {
-	[types.MUTATE_PEMINJAMANDATA]: (state, payload) => {
-		state.peminjamanData = payload
-	},
-	[types.MUTATE_PEMINJAM]: (state, payload) => {
-		state.peminjam = payload
-	},
-}
+  [types.MUTATE_PEMINJAMANDATA]: (state, payload) => {
+    state.peminjamanData = payload;
+  },
+  [types.MUTATE_PEMINJAM]: (state, payload) => {
+    state.peminjam = payload;
+  },
+  [types.MUTATE_IMAGE_PEMINJAM]: (state, payload) => {
+    state.imagePeminjam = payload;
+  },
+};

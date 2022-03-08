@@ -1,245 +1,190 @@
 <template>
-	<div class="beranda-peminjaman">
-		<div class="header">
-			<div class="header-title">
-				<h2 class="text-center">
-					PORTAL PEMINJAMAN ALAT LABORATORIUM
-					<br />
-					TEKNIK INFORMATIKA DAN KOMPUTER
-				</h2>
-			</div>
-		</div>
-		<div class="tabs-menu">
-			<b-tabs align="center">
-				<b-tab
-					v-for="(tab, idxTab) in tabs"
-					:key="`tab-menu-${idxTab}`"
-					:title="tab.tabTitle"
-					lazy
-					:active="activeTab == tab.tabTitle.toLowerCase()"
-					@click="setActiveTab(tab.tabTitle.toLowerCase())"
-				>
-					<tab-menu-component
-						:actionButton="openPopup"
-						:tabMenu="tab"
-						:activeButton="checkActiveButton"
-					/>
-				</b-tab>
-			</b-tabs>
-		</div>
+  <div class="beranda-peminjaman">
+    <div class="header">
+      <div class="header-title">
+        <h2 class="text-center">
+          PORTAL PEMINJAMAN ALAT LABORATORIUM
+          <br />
+          TEKNIK INFORMATIKA DAN KOMPUTER
+        </h2>
+      </div>
+    </div>
+    <div class="action-menu row justify-content-center">
+      <div class="col-lg-4 col-md-4 col-sm-12 box">
+        <div class="box-action">
+          <h3>
+            Atur <br />
+            Pengembalian
+          </h3>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 box">
+        <div
+          class="box-action"
+          @click="$router.push({ name: 'ActionPeminjaman' })"
+        >
+          <h3>
+            Peminjaman <br />
+            Alat
+          </h3>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 box">
+        <div
+          class="box-action"
+          @click="$router.push({ name: 'LaporKerusakanAlat' })"
+        >
+          <h3>
+            Lapor <br />
+            Kerusakan Alat
+          </h3>
+        </div>
+      </div>
+    </div>
 
-		<!-- START: POPUP ACTION -->
-		<b-modal
-			ref="modal-popup"
-			id="modal-popup"
-			centered
-			hide-footer
-			hide-header
-			no-close-on-backdrop
-			no-close-on-esc
-		>
-			<action-modal
-				v-if="baseModalType === 'action'"
-				:title="actionModal[activeTab]"
-				:form="formModal"
-				:closeModal="closePopup"
-				:actionType="activeTab"
-			/>
-		</b-modal>
-		<!-- END: POPUP ACTION -->
-	</div>
+    <!-- START: POPUP ACTION -->
+    <b-modal
+      ref="modal-popup"
+      id="modal-popup"
+      centered
+      hide-footer
+      hide-header
+      no-close-on-backdrop
+      no-close-on-esc
+    >
+      <action-modal
+        v-if="baseModalType === 'action'"
+        :title="actionModal[activeTab]"
+        :form="formModal"
+        :closeModal="closePopup"
+        :actionType="activeTab"
+      />
+    </b-modal>
+    <!-- END: POPUP ACTION -->
+  </div>
 </template>
 
 <script>
-	// Components
-	import TabMenuComponent from '@/components/Peminjaman/TabMenuComponent'
-	import ActionModal from '@/components/Peminjaman/ActionModal'
+// Components
+import TabMenuComponent from "@/components/Peminjaman/TabMenuComponent";
+import ActionModal from "@/components/Peminjaman/ActionModal";
 
-	// Mixins
-	import ModalMixins from '@/mixins/ModalMixins'
+// Mixins
+import ModalMixins from "@/mixins/ModalMixins";
 
-	export default {
-		name: 'beranda-peminjaman',
-		components: { TabMenuComponent, ActionModal },
-		mixins: [ModalMixins],
-		data() {
-			return {
-				activeTab: 'peminjaman',
-				actionModal: {
-					peminjaman: 'Peminjaman Alat Laboratorium',
-					pengembalian: 'Pengembalian Alat Laboratorium',
-				},
-				formModal: {
-					label: 'Nomor Induk',
-					type: 'text',
-					placeholder: 'Nomor Induk',
-					model: '',
-				},
-				tabs: [
-					{
-						id: 1,
-						tabTitle: 'Peminjaman',
-						contentTitle: 'ALUR PEMINJAMAN ALAT LABORATORIUM',
-						textButton: 'Pinjam Alat',
-						steps: [
-							{
-								title: 'Form Peminjaman Alat',
-								desc:
-									'Peminjam perlu mengisi Nomor Induk, Keperluan Peminjaman, Dosen Penanggung Jawab (untuk Mahasiswa), Ruangan Pemakaian',
-								icon: 'form',
-							},
-							{
-								title: 'Scan Barcode Alat',
-								desc:
-									'Setelah mengisi informasi peminjaman, scan barcode pada alat yang akan dipinjam, menggunakan opsi yang telah disediakan',
-								icon: 'scanner',
-							},
-							{
-								title: 'Ambil Alat',
-								desc:
-									'Jika proses peminjaman berhasil, peminjam dapat mengambil alat di Laboratorium Teknik Informatika dan Komputer',
-								icon: 'smartphone',
-							},
-						],
-					},
-					// {
-					// 	id: 2,
-					// 	tabTitle: 'Pengembalian',
-					// 	contentTitle: 'ALUR PENGEMBALIAN ALAT LABORATORIUM',
-					// 	textButton: 'Kembalikan Alat',
-					// 	steps: [
-					// 		{
-					// 			title: 'Masukkan Nomor Induk ',
-					// 			desc:
-					// 				'Peminjam memasukkan Nomor Induk Mahasisaw untuk Mahasiswa dan Nomor Induk Pegawai untuk Staff / Dosen',
-					// 			icon: 'input-icon',
-					// 		},
-					// 		{
-					// 			title: 'Scan Barcode Alat',
-					// 			desc:
-					// 				'Sistem menampilkan alat yang dipinjam. Peminjam harus scan seluruh alat yang ingin dikembalikan',
-					// 			icon: 'scanner',
-					// 		},
-					// 		{
-					// 			title: 'Kembalikan  Alat',
-					// 			desc:
-					// 				'Jika proses pengembalian berhasil, peminjam dapat mengembalikan alat kepada staff` Laboratorium Teknik Informatika dan Komputer',
-					// 			icon: 'users',
-					// 		},
-					// 	],
-					// },
-					{
-						id: 3,
-						tabTitle: 'Cek Peminjaman',
-						contentTitle: 'CEK PEMINJAMAN ALAT TERAKHIR',
-						desc:
-							'Silahkan masukkan Nomor Induk dari Peminjam (NIM untuk Mahasiswa dan NIP untuk Staff / Dosen) <br /> untuk mengetahui transaksi peminjaman alat terbaru',
-						inputValue: '',
-						textButton: 'Periksa Peminjaman',
-					},
-				],
-			}
-		},
-		computed: {
-			isMobile() {
-				const toMatch = [
-					/Android/i,
-					/webOS/i,
-					/iPhone/i,
-					/iPad/i,
-					/iPod/i,
-					/BlackBerry/i,
-					/Windows Phone/i,
-				]
+export default {
+  name: "beranda-peminjaman",
+  components: { TabMenuComponent, ActionModal },
+  mixins: [ModalMixins],
+  data() {
+    return {
+      activeTab: "peminjaman",
+      actionModal: {
+        peminjaman: "Peminjaman Alat Laboratorium",
+        pengembalian: "Pengembalian Alat Laboratorium",
+      },
+      formModal: {
+        label: "Nomor Induk",
+        type: "text",
+        placeholder: "Nomor Induk",
+        model: "",
+      },
+    };
+  },
+  computed: {
+    isMobile() {
+      const toMatch = [
+        /Android/i,
+        /webOS/i,
+        /iPhone/i,
+        /iPad/i,
+        /iPod/i,
+        /BlackBerry/i,
+        /Windows Phone/i,
+      ];
 
-				return toMatch.some((toMatchItem) => {
-					return navigator.userAgent.match(toMatchItem)
-				})
-			},
+      return toMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+      });
+    },
 
-			checkActiveButton() {
-				let form = this.tabs.find((tab) => tab.id === 3)
-				return form.inputValue !== ''
-			},
-		},
-		mounted() {},
-		methods: {
-			// Tab Interaction
-			setActiveTab(tabName) {
-				this.activeTab = tabName
-			},
-		},
-	}
+    checkActiveButton() {
+      let form = this.tabs.find((tab) => tab.id === 3);
+      return form.inputValue !== "";
+    },
+  },
+  mounted() {},
+  methods: {
+    // Tab Interaction
+    setActiveTab(tabName) {
+      this.activeTab = tabName;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-	.beranda-peminjaman {
-		.header {
-			.header-title {
-				h2 {
-					font-weight: 700;
-					font-size: 32px;
-				}
-			}
-		}
-		.tabs-menu {
-			margin-top: 80px;
-			padding: 0;
-		}
-	}
-	@media screen and (max-width: 992px) {
-		.beranda-peminjaman {
-			.header {
-				.header-title {
-					h2 {
-						font-size: 24px;
-					}
-				}
-			}
-		}
-	}
+.beranda-peminjaman {
+  .header {
+    .header-title {
+      h2 {
+        font-weight: 700;
+        font-size: 32px;
+      }
+    }
+  }
+
+  .action-menu {
+    margin: 120px 0;
+
+    .box-action {
+      height: 100px;
+      padding: 20px;
+      background-color: #213069;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 24px;
+      &:hover {
+        cursor: pointer;
+        background-color: #101939;
+      }
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .beranda-peminjaman {
+    .header {
+      .header-title {
+        h2 {
+          font-size: 24px;
+        }
+      }
+    }
+    .action-menu {
+      .box {
+        margin-bottom: 4rem;
+      }
+    }
+  }
+}
 </style>
 
 <style lang="scss">
-	.beranda-peminjaman {
-		overflow-y: hidden;
-		.nav-tabs {
-			border-bottom: none;
-			.nav-link {
-				border: none;
-				color: #696969;
-				font-size: 20px;
-				&.active {
-					color: #101939;
-					font-weight: 700;
-					border-bottom: 2px solid;
-					border-color: #101939;
-				}
-			}
-		}
+.beranda-peminjaman {
+  overflow-y: hidden;
+}
 
-		.tab-content {
-			margin-top: 40px;
-			border: 1px solid #c5c5c5;
-			border-radius: 8px;
-			padding: 40px;
-			min-height: 100%;
-		}
-	}
-
-	@media screen and (max-width: 992px) {
-		.beranda-peminjaman {
-			.header {
-				.header-title {
-					h2 {
-						font-size: 24px;
-					}
-				}
-			}
-			.tab-content {
-				border: none;
-				padding: 10px;
-			}
-		}
-	}
+@media screen and (max-width: 992px) {
+  .beranda-peminjaman {
+    .header {
+      .header-title {
+        h2 {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
 </style>
