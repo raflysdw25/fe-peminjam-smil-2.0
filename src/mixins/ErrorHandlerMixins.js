@@ -44,7 +44,7 @@ export default {
             return output;
           }
         } else {
-          return err.response.message;
+          return err.response.data.message;
         }
       } else {
         return e.message;

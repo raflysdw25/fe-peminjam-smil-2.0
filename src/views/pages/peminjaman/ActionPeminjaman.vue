@@ -10,7 +10,7 @@
       <div class="button-group" v-if="!isMobile">
         <button
           class="smil-btn smil-bg-danger mr-3"
-          @click="$router.push({ name: 'BerandaPeminjaman' })"
+          @click="$router.push({ name: 'ListPeminjamanAlatPeminjam' })"
         >
           Batal
         </button>

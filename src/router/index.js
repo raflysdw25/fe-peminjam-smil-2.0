@@ -7,15 +7,19 @@ import CryptoJS from "crypto-js";
 // Layout
 import LayoutPortalPeminjaman from "@/views/layout/LayoutPortalPeminjaman.vue";
 
-// PEMINJAMAN
-
 // Pages
+// PEMINJAMAN
+import ListPeminjamanAlatPeminjam from "@/views/pages/peminjaman/ListPeminjamanAlatPeminjam";
+import ActionPeminjaman from "@/views/pages/peminjaman/ActionPeminjaman.vue";
+
+// AUTH
 import LoginPeminjam from "@/views/pages/LoginPeminjam.vue";
 import FirstLoginPeminjam from "@/views/pages/FirstLoginPeminjam.vue";
+
+// PEMINJAM
 import BerandaPeminjaman from "@/views/pages/peminjaman/BerandaPeminjaman.vue";
-import LaporKerusakanAlat from "@/views/pages/peminjaman/LaporKerusakanAlat.vue";
 import BuatAkunMahasiswa from "@/views/pages/peminjaman/BuatAkunMahasiswa.vue";
-import ActionPeminjaman from "@/views/pages/peminjaman/ActionPeminjaman.vue";
+import LaporKerusakanAlat from "@/views/pages/peminjaman/LaporKerusakanAlat.vue";
 import ActionPengembalian from "@/views/pages/peminjaman/ActionPengembalian.vue";
 
 Vue.use(VueRouter);
@@ -50,6 +54,12 @@ const routes = [
         path: "/lapor-kerusakan",
         name: "LaporKerusakanAlat",
         component: LaporKerusakanAlat,
+      },
+      // List Peminjaman Alat Peminjam
+      {
+        path: "/list-peminjaman",
+        name: "ListPeminjamanAlatPeminjam",
+        component: ListPeminjamanAlatPeminjam,
       },
     ],
   },

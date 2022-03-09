@@ -27,7 +27,9 @@ export default {
     // laporan-kerusakan, mahasiswa
     return peminjam_api.post(`add-${type}`, createPayload);
   },
-
+  getFilterData(type, page, filterPayload) {
+    return peminjam_api.post(`${type}?page=${page}`, filterPayload);
+  },
   getPlainData(type) {
     return peminjam_api.get(`get-${type}`);
   },

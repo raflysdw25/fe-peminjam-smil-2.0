@@ -1,10 +1,24 @@
 <template>
   <div class="layout-portal-peminjaman">
     <!-- START: Navbar -->
-    <b-navbar toggleable="lg" type="dark" variant="smil-primary">
+    <b-navbar
+      toggleable="lg"
+      type="dark"
+      variant="smil-primary"
+      class="header-layout"
+    >
       <b-navbar-brand to="/">
-        <div class="logo-brand container">
-          <img src="@/assets/images/brand-peminjaman.png" alt="" />
+        <div class="logo-brand">
+          <img
+            src="@/assets/images/brand-peminjaman.png"
+            class="d-none d-lg-block"
+            alt=""
+          />
+          <img
+            src="@/assets/images/Logo_PNJ.png"
+            class="d-block d-lg-none"
+            alt=""
+          />
         </div>
       </b-navbar-brand>
       <div class="peminjam-info">
@@ -268,9 +282,14 @@ export default {
 @media screen and (max-width: 992px) {
   .navbar {
     padding: 20px;
+    .peminjam-info {
+      margin-left: 0;
+    }
   }
   .logo-brand {
-    display: none !important;
+    img {
+      width: 80px;
+    }
   }
   .content-view {
     .content-peminjaman {

@@ -21,7 +21,7 @@
       <div class="col-lg-4 col-md-4 col-sm-12 box">
         <div
           class="box-action"
-          @click="$router.push({ name: 'ActionPeminjaman' })"
+          @click="$router.push({ name: 'ListPeminjamanAlatPeminjam' })"
         >
           <h3>
             Peminjaman <br />

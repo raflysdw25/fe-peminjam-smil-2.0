@@ -39,6 +39,9 @@ export default {
         // Match with regex
         else e.preventDefault();
       } else if (type === "barcode-input") {
+        if (this.environment === "development") {
+          return true;
+        }
         let timer = 0;
         clearTimeout(timer);
         timer = setTimeout(() => {
@@ -66,6 +69,9 @@ export default {
     },
     formPasteConstraint(e, type) {
       if (type === "barcode-input") {
+        if (this.environment === "development") {
+          return true;
+        }
         e.preventDefault();
       } else {
         return true;
@@ -90,7 +96,7 @@ export default {
       // typeDisplayError : alert() -> alert, showAlert() -> modal
       if (e.response) {
         let err = e.response.data;
-        if (err.response.code === 400) {
+        if (err.status === 400) {
           let mKey = Object.keys(err.response.message);
           let message = err.response.message;
           if (typeDisplayError == "alert") {
@@ -115,7 +121,7 @@ export default {
             return output;
           }
         } else {
-          return err.response.message;
+          return err.message;
         }
       } else {
         return e;
@@ -124,7 +130,9 @@ export default {
   },
   computed: {
     environment() {
-      return process.env.NODE_ENV;
+      return process.env.VUE_APP_DEVELOPMENT === "true"
+        ? "development"
+        : "production";
     },
     isMobile() {
       const toMatch = [
