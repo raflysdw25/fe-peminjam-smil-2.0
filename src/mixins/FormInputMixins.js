@@ -83,6 +83,15 @@ export default {
     notBeforeToday(date) {
       return date < new Date().setHours(0, 0, 0, 0);
     },
+    disableBeforeTodayAndWeekends(date) {
+      let today = new Date(date);
+      let dayIndex = today.getDay();
+      let weekend = [0, 6];
+      return (
+        date < new Date().setHours(0, 0, 0, 0) ||
+        (date > new Date().setHours(0, 0, 0, 0) && weekend.includes(dayIndex))
+      );
+    },
     dateRange(start, end) {
       if (end !== null) {
         let startDate = moment(start);

@@ -548,7 +548,6 @@ export default {
         this.currentDate,
         this.formatDate(fieldRow.model, "YYYY-MM-DD")
       );
-      console.log("Range Date: ", rangeDate);
       if (!this.isMobile) {
         this.addedAlat = [];
       }

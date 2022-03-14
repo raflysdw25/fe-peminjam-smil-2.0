@@ -155,7 +155,7 @@ export default {
         const response = await api.logoutPeminjam();
         if (response.data.response.code == 200) {
           $cookies.remove("smilPeminjamAuth");
-          $cookies.remove("smilAccessToken");
+          $cookies.remove("smilAccessTokenPeminjam");
           this.popupAlert(false, true, response.data.response.message);
           setTimeout(() => {
             this.$router.push({ name: "LoginPeminjam" });

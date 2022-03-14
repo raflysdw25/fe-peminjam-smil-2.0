@@ -58,7 +58,7 @@ export default {
   components: { IconComponent },
   props: {
     filter_type: String,
-    default_value: [String, Number],
+    default_value: [String, Number, Boolean],
     placeholder: String,
     options: { type: Array, default: () => [] },
     modelFilter: String,

@@ -24,8 +24,10 @@ export default {
     return peminjam_api.get(`peminjam/get-image/${userId}`);
   },
   createData(type, createPayload) {
-    // laporan-kerusakan, mahasiswa
-    return peminjam_api.post(`add-${type}`, createPayload);
+    // laporan-kerusakan, mahasiswa, peminjaman, submit-booking-pengembalian
+    let endpoint =
+      type !== "booking-pengembalian" ? `add-${type}` : `submit-${type}`;
+    return peminjam_api.post(`${endpoint}`, createPayload);
   },
   getFilterData(type, page, filterPayload) {
     return peminjam_api.post(`${type}?page=${page}`, filterPayload);

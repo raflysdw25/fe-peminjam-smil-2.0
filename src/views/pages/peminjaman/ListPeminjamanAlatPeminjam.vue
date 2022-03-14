@@ -612,17 +612,17 @@ export default {
     },
     // Filter Methods
     nextPage() {
-      if (this.tableInfo.pageNo !== this.tableInfo.totalPage) {
-        this.tableInfo.pageNo += 1;
+      if (this.paginationData.pageNo !== this.paginationData.totalPage) {
+        this.paginationData.pageNo += 1;
       }
     },
     previousPage() {
-      if (this.tableInfo.pageNo !== 1) {
-        this.tableInfo.pageNo -= 1;
+      if (this.paginationData.pageNo !== 1) {
+        this.paginationData.pageNo -= 1;
       }
     },
     jumpPage(pageNo) {
-      this.tableInfo.pageNo = pageNo;
+      this.paginationData.pageNo = pageNo;
     },
     changeFilterValue(objFilter) {
       if (objFilter.type == "search-number") {

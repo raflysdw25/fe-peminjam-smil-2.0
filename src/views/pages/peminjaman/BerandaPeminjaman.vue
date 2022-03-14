@@ -11,7 +11,10 @@
     </div>
     <div class="action-menu row justify-content-center">
       <div class="col-lg-4 col-md-4 col-sm-12 box">
-        <div class="box-action">
+        <div
+          class="box-action"
+          @click="$router.push({ name: 'ListBookingPengembalian' })"
+        >
           <h3>
             Atur <br />
             Pengembalian

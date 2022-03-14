@@ -12,7 +12,7 @@ export default {
         let err = e.response.data;
         if (e.response.status === 401) {
           $cookies.remove("smilPeminjamAuth");
-          $cookies.remove("smilAccessToken");
+          $cookies.remove("smilAccessTokenPeminjam");
 
           alert("User tidak memiliki akses");
           setTimeout(() => {

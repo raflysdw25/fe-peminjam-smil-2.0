@@ -12,6 +12,9 @@ import LayoutPortalPeminjaman from "@/views/layout/LayoutPortalPeminjaman.vue";
 import ListPeminjamanAlatPeminjam from "@/views/pages/peminjaman/ListPeminjamanAlatPeminjam";
 import ActionPeminjaman from "@/views/pages/peminjaman/ActionPeminjaman.vue";
 
+// BOOKING PENGEMBALIAN
+import ListBookingPengembalian from "@/views/pages/peminjaman/ListBookingPengembalian";
+
 // AUTH
 import LoginPeminjam from "@/views/pages/LoginPeminjam.vue";
 import FirstLoginPeminjam from "@/views/pages/FirstLoginPeminjam.vue";
@@ -38,12 +41,24 @@ const routes = [
         name: "BerandaPeminjaman",
         component: BerandaPeminjaman,
       },
-      // Form Peminjaman & Pengembalian
+      // Peminjaman Alat Peminjam
+      {
+        path: "/list-peminjaman",
+        name: "ListPeminjamanAlatPeminjam",
+        component: ListPeminjamanAlatPeminjam,
+      },
       {
         path: "/peminjaman",
         name: "ActionPeminjaman",
         component: ActionPeminjaman,
       },
+      // Booking Pengembalian Alat
+      {
+        path: "/booking-pengembalian",
+        name: "ListBookingPengembalian",
+        component: ListBookingPengembalian,
+      },
+      // Form Peminjaman & Pengembalian
       {
         path: "/pengembalian",
         name: "ActionPengembalian",
@@ -54,12 +69,6 @@ const routes = [
         path: "/lapor-kerusakan",
         name: "LaporKerusakanAlat",
         component: LaporKerusakanAlat,
-      },
-      // List Peminjaman Alat Peminjam
-      {
-        path: "/list-peminjaman",
-        name: "ListPeminjamanAlatPeminjam",
-        component: ListPeminjamanAlatPeminjam,
       },
     ],
   },
@@ -95,7 +104,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   let dataUser = $cookies.get("smilPeminjamAuth");
-  let accessToken = $cookies.get("smilAccessToken");
+  let accessToken = $cookies.get("smilAccessTokenPeminjam");
   if (to.name == "LoginPeminjam" || to.name == "BuatAkunMahasiswa") {
     if (dataUser && accessToken) {
       next({ name: "BerandaPeminjaman" });
@@ -124,12 +133,12 @@ router.beforeEach((to, from, next) => {
           skipChangePassword: decryptedData.first_login ? false : true,
           is_mahasiswa: decryptedData.is_mahasiswa,
         };
-        $cookies.set("smilAccessToken", accessToken, "12h");
+        $cookies.set("smilAccessTokenPeminjam", accessToken, "12h");
         store.dispatch(types.UPDATE_PEMINJAM, peminjamData);
 
         next();
       } else {
-        $cookies.remove("smilAccessToken");
+        $cookies.remove("smilAccessTokenPeminjam");
         next({ name: "LoginPeminjam" });
       }
     } else {

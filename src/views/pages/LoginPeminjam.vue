@@ -203,7 +203,11 @@ export default {
           let e64 = CryptoJs.enc.Base64.parse(cipherData);
           let eHex = e64.toString(CryptoJs.enc.Hex);
           $cookies.set("smilPeminjamAuth", eHex, "12h");
-          $cookies.set("smilAccessToken", peminjam.data.access_token, "12h");
+          $cookies.set(
+            "smilAccessTokenPeminjam",
+            peminjam.data.access_token,
+            "12h"
+          );
 
           // Save data peminjam into Vuex
           this.popupAlert(false, true, peminjam.response.message);
