@@ -19,32 +19,34 @@ export default {
             this.$router.push({ name: "LoginPeminjam" });
             this.$store.dispatch(types.UPDATE_PEMINJAM, null);
           }, 2000);
-        } else if (err && err.response.code === 400) {
-          let mKey = Object.keys(err.response.message);
-          let message = err.response.message;
-          if (typeDisplayError == "alert") {
-            let output = "";
-            mKey.forEach((key, idxKey) => {
-              if (idxKey !== mKey.length - 1) {
-                output += `${message[key]}, `;
-              } else {
-                output += `${message[key]}`;
-              }
-            });
-            return output;
-          } else {
-            let output = [];
-            mKey.forEach((key, idxKey) => {
-              let modalNotes = {
-                title: key,
-                message: message[key],
-              };
-              output.push(modalNotes);
-            });
-            return output;
+        } else if (err && err.response) {
+          if (err.response.code === 400) {
+            let mKey = Object.keys(err.response.message);
+            let message = err.response.message;
+            if (typeDisplayError == "alert") {
+              let output = "";
+              mKey.forEach((key, idxKey) => {
+                if (idxKey !== mKey.length - 1) {
+                  output += `${message[key]}, `;
+                } else {
+                  output += `${message[key]}`;
+                }
+              });
+              return output;
+            } else {
+              let output = [];
+              mKey.forEach((key, idxKey) => {
+                let modalNotes = {
+                  title: key,
+                  message: message[key],
+                };
+                output.push(modalNotes);
+              });
+              return output;
+            }
           }
         } else {
-          return err.response.data.message;
+          return err.message;
         }
       } else {
         return e.message;

@@ -201,11 +201,14 @@
               Status
             </h5>
             <p class="profile-value">
-              {{
-                `${
-                  dataPeminjam.is_mahasiswa ? "Mahasiswa" : "Staff Jurusan"
-                } - ${dataPeminjam.jabatan_model.jabatan_name}`
-              }}
+              <template v-if="dataPeminjam.is_mahasiswa">
+                Mahasiswa
+              </template>
+              <template v-else>
+                {{
+                  `Staff Jurusan - ${dataPeminjam.jabatan_model.jabatan_name}`
+                }}
+              </template>
             </p>
           </div>
           <button
@@ -333,29 +336,32 @@ export default {
     async submitUpdateProfile() {
       this.loadingSubmit = true;
       try {
-        console.log("ID Peminjam: ", this.dataPeminjam.id);
         const response = await api.updateProfileUser(
           this.dataPeminjam.id,
           this.payloadUpdateUser
         );
         if (response.status === 200) {
           this.popupAlert(false, true, "Berhasil memperbarui data user");
-          // await this.getUserData()
+
           let rawData = response.data.data;
+          // console.log("Response Raw Data: ", rawData);
           let peminjamData = {
             id: rawData.id,
             staff_model: rawData.staff_user,
             mahasiswa_model: rawData.mahasiswa_user,
-            nomor_induk: rawData.is_mahasiswa
-              ? rawData.mahasiswa_user.nim
-              : rawData.staff_user.nip,
-            jabatan_id: rawData.jabatan_user.id,
+            nomor_induk:
+              rawData.nip !== null && rawData.nip !== ""
+                ? rawData.staff_user.nip
+                : rawData.mahasiswa_user.nim,
+            jabatan_id:
+              rawData.jabatan_user !== null ? rawData.jabatan_user.id : null,
             jabatan_model: rawData.jabatan_user,
             active_period: rawData.user_active_period,
             expire_period: rawData.user_expire_period,
             first_login: rawData.first_login,
-            is_mahasiswa: rawData.nip === null || rawData.nip === "",
+            is_mahasiswa: rawData.nip == null || rawData.nip == "",
           };
+          // console.log("Peminjam Data: ", peminjamData);
 
           if (peminjamData.first_login) {
             peminjamData.skipChangePassword = false;

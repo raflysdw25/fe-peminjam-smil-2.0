@@ -125,7 +125,10 @@ router.beforeEach((to, from, next) => {
             : decryptedData.staff_model.nip,
           staff_model: decryptedData.staff_model,
           mahasiswa_model: decryptedData.mahasiswa_model,
-          jabatan_id: decryptedData.jabatan_model.id,
+          jabatan_id:
+            decryptedData.jabatan_model !== null
+              ? decryptedData.jabatan_model.id
+              : null,
           jabatan_model: decryptedData.jabatan_model,
           active_period: decryptedData.active_period,
           expire_period: decryptedData.expire_period,

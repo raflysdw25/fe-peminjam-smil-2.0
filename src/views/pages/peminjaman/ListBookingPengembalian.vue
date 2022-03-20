@@ -1,6 +1,6 @@
 <template>
   <div class="list-booking-pengembalian">
-    <h1 class="title-list">Booking Pengembalian Alat</h1>
+    <h1 class="title-list">List Janji Laboratorium</h1>
     <div class="button-group">
       <button
         class="smil-btn smil-bg-primary mx-3"
@@ -605,7 +605,21 @@ export default {
 <style lang="scss">
 .list-booking-pengembalian {
   .card {
-    min-height: 262px;
+    min-height: 300px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .list-booking-pengembalian {
+    .card {
+      min-height: 300px;
+      margin-bottom: 12px;
+    }
+    .filter-list {
+      .filter-group {
+        max-width: none !important;
+        padding: 0 15px;
+      }
+    }
   }
 }
 </style>

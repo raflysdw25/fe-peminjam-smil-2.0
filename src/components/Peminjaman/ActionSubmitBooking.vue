@@ -4,7 +4,7 @@
     <p class="note-booking">
       <template v-if="submitType === 'cancel'">
         Apakah anda yakin ingin membatalkan janji ini? Anda perlu membuat janji
-        baru jika ingin melakukan pengembalian alat
+        baru jika ingin melakukan janji pengembalian alat
       </template>
       <template v-else>
         Catatan:

@@ -61,7 +61,7 @@
 <script>
 // API
 import api from "@/api/peminjam_api";
-import CryptoJs from "crypto-js";
+
 export default {
   name: "base-modal-change-password",
   props: {

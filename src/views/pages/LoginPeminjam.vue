@@ -181,7 +181,10 @@ export default {
             nomor_induk: peminjam.data.is_mahasiswa
               ? peminjam.data.mahasiswa_model.nim
               : peminjam.data.staff_model.nip,
-            jabatan_id: peminjam.data.jabatan_model.id,
+            jabatan_id:
+              peminjam.data.jabatan_model !== null
+                ? peminjam.data.jabatan_model.id
+                : null,
             jabatan_model: peminjam.data.jabatan_model,
             active_period: peminjam.data.user_active_period,
             expire_period: peminjam.data.user_expire_period,

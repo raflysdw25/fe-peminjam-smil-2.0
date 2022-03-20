@@ -761,9 +761,7 @@ export default {
       height: 420px;
       box-sizing: border-box;
       margin-right: 15px;
-      &:last-child {
-        margin-right: 0;
-      }
+      margin-bottom: 15px;
 
       .list-head {
         display: flex;
@@ -805,9 +803,17 @@ export default {
     .filter-list {
       display: flex;
       flex-direction: column;
+      .filter-group {
+        max-width: none;
+        padding: 0 15px;
+      }
+    }
+    .pagination-section {
+      padding: 0 15px;
     }
     .list-data {
       width: 100%;
+      padding: 15px;
       .list-card {
         margin-right: 0;
         margin-bottom: 15px;

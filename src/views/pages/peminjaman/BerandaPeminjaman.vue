@@ -10,89 +10,60 @@
       </div>
     </div>
     <div class="action-menu row justify-content-center">
-      <div class="col-lg-4 col-md-4 col-sm-12 box">
+      <div class="col-lg-4 col-md-6 col-12 box">
         <div
           class="box-action"
           @click="$router.push({ name: 'ListBookingPengembalian' })"
         >
+          <icon-component iconName="calendar" :size="160" colorIcon="#101939" />
           <h3>
-            Atur <br />
-            Pengembalian
+            Atur Janji Laboratorium
           </h3>
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-12 box">
+      <div class="col-lg-4 col-md-6 col-12 box">
         <div
           class="box-action"
           @click="$router.push({ name: 'ListPeminjamanAlatPeminjam' })"
         >
+          <icon-component iconName="scanner" :size="160" colorIcon="#101939" />
           <h3>
-            Peminjaman <br />
-            Alat
+            Peminjaman Alat
           </h3>
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-12 box">
+      <div class="col-lg-4 col-md-6 col-12 box" v-if="!isMobile">
         <div
           class="box-action"
           @click="$router.push({ name: 'LaporKerusakanAlat' })"
         >
+          <icon-component
+            iconName="fixing-tools"
+            :size="160"
+            colorIcon="#101939"
+          />
           <h3>
-            Lapor <br />
-            Kerusakan Alat
+            Lapor Kerusakan Alat
           </h3>
         </div>
       </div>
     </div>
-
-    <!-- START: POPUP ACTION -->
-    <b-modal
-      ref="modal-popup"
-      id="modal-popup"
-      centered
-      hide-footer
-      hide-header
-      no-close-on-backdrop
-      no-close-on-esc
-    >
-      <action-modal
-        v-if="baseModalType === 'action'"
-        :title="actionModal[activeTab]"
-        :form="formModal"
-        :closeModal="closePopup"
-        :actionType="activeTab"
-      />
-    </b-modal>
-    <!-- END: POPUP ACTION -->
   </div>
 </template>
 
 <script>
 // Components
-import TabMenuComponent from "@/components/Peminjaman/TabMenuComponent";
-import ActionModal from "@/components/Peminjaman/ActionModal";
+import IconComponent from "@/components/IconComponent";
 
 // Mixins
 import ModalMixins from "@/mixins/ModalMixins";
 
 export default {
   name: "beranda-peminjaman",
-  components: { TabMenuComponent, ActionModal },
+  components: { IconComponent },
   mixins: [ModalMixins],
   data() {
-    return {
-      activeTab: "peminjaman",
-      actionModal: {
-        peminjaman: "Peminjaman Alat Laboratorium",
-        pengembalian: "Pengembalian Alat Laboratorium",
-      },
-      formModal: {
-        label: "Nomor Induk",
-        type: "text",
-        placeholder: "Nomor Induk",
-        model: "",
-      },
-    };
+    return {};
   },
   computed: {
     isMobile() {
@@ -110,19 +81,9 @@ export default {
         return navigator.userAgent.match(toMatchItem);
       });
     },
-
-    checkActiveButton() {
-      let form = this.tabs.find((tab) => tab.id === 3);
-      return form.inputValue !== "";
-    },
   },
   mounted() {},
-  methods: {
-    // Tab Interaction
-    setActiveTab(tabName) {
-      this.activeTab = tabName;
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -141,17 +102,23 @@ export default {
     margin: 120px 0;
 
     .box-action {
-      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: fit-content;
       padding: 20px;
-      background-color: #213069;
-      color: #fff;
-      font-weight: bold;
       text-align: center;
-      border-radius: 5px;
-      font-size: 24px;
       &:hover {
         cursor: pointer;
-        background-color: #101939;
+        background-color: #f4f4f4;
+        border-radius: 8px;
+      }
+      h3 {
+        margin-bottom: 0;
+        margin-top: 24px;
+        font-size: 20px;
+        font-weight: bold;
       }
     }
   }
@@ -167,7 +134,7 @@ export default {
     }
     .action-menu {
       .box {
-        margin-bottom: 4rem;
+        margin-bottom: 2em;
       }
     }
   }
@@ -177,17 +144,5 @@ export default {
 <style lang="scss">
 .beranda-peminjaman {
   overflow-y: hidden;
-}
-
-@media screen and (max-width: 992px) {
-  .beranda-peminjaman {
-    .header {
-      .header-title {
-        h2 {
-          font-size: 24px;
-        }
-      }
-    }
-  }
 }
 </style>

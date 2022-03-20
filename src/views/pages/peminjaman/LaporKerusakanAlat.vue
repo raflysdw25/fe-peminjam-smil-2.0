@@ -142,7 +142,7 @@ export default {
             let alat = response.data.data;
             if (alat === null) {
               this.formList[1].model = "";
-              this.showAlert(false, false, response.data.response.message);
+              this.popupAlert(false, false, response.data.response.message);
             } else {
               let alatName = {
                 label: "Nama Alat",
@@ -164,22 +164,22 @@ export default {
         }
         let message = this.getErrorMessage(e);
         if (typeof message == "object" && message.length > 0) {
-          this.showAlert(false, false, "Terjadi Kesalahan", message);
+          this.popupAlert(false, false, "Terjadi Kesalahan", message);
         } else {
-          this.showAlert(false, false, message);
+          this.popupAlert(false, false, message);
         }
       }
     },
     async createReport() {
       this.isCreate = true;
-      this.showAlert(true);
+      this.popupAlert(true);
       try {
         const response = await api.createData(
           "laporan-kerusakan",
           this.submitRequest
         );
         if (response.data.response.code === 201) {
-          this.showAlert(false, true, response.data.response.message);
+          this.popupAlert(false, true, response.data.response.message);
           setTimeout(() => {
             this.$router.push({ name: "BerandaPeminjaman" });
           }, 2000);
@@ -191,9 +191,9 @@ export default {
         }
         let message = this.getErrorMessage(e);
         if (typeof message == "object" && message.length > 0) {
-          this.showAlert(false, false, "Terjadi Kesalahan", message);
+          this.popupAlert(false, false, "Terjadi Kesalahan", message);
         } else {
-          this.showAlert(false, false, message);
+          this.popupAlert(false, false, message);
         }
       }
     },
