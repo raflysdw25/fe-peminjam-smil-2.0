@@ -523,7 +523,7 @@ export default {
             `Peminjaman berhasil dibuat, ${message}`
           );
           setTimeout(() => {
-            this.$router.push({ name: "BerandaPeminjaman" });
+            this.$router.push({ name: "ListPeminjamanAlatPeminjam" });
           }, 2000);
         }
       } catch (e) {

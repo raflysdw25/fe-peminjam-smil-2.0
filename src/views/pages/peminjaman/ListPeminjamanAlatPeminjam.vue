@@ -378,20 +378,27 @@
         <div class="riwayat-peminjaman">
           <h4>Riwayat Peminjaman</h4>
           <div class="list-riwayat">
-            <div
-              class="riwayat"
-              v-for="(log, idxLog) in selectedPeminjamanAlat.log_peminjaman"
-              :key="`list-log-${idxLog}`"
-            >
-              <span class="datetime-riwayat">
-                {{
-                  `${formatDate(log.created_at, "DD MMMM YYYY, HH:MM:SS A")}`
-                }}
-              </span>
-              <span class="action-riwayat">
-                {{ getLogPeminjaman(log) }}
-              </span>
-            </div>
+            <template v-if="selectedPeminjamanAlat.log_peminjaman.length === 0">
+              <div class="text-center text-muted">
+                Tidak ada riwayat peminjaman
+              </div>
+            </template>
+            <template v-else>
+              <div
+                class="riwayat"
+                v-for="(log, idxLog) in selectedPeminjamanAlat.log_peminjaman"
+                :key="`list-log-${idxLog}`"
+              >
+                <span class="datetime-riwayat">
+                  {{
+                    `${formatDate(log.created_at, "DD MMMM YYYY, HH:MM:SS A")}`
+                  }}
+                </span>
+                <span class="action-riwayat">
+                  {{ getLogPeminjaman(log) }}
+                </span>
+              </div>
+            </template>
           </div>
         </div>
       </template>
