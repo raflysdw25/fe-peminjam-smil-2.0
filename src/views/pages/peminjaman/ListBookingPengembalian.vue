@@ -361,14 +361,8 @@ export default {
         { id: 1, name: "ID", value: "id", disabled: false },
         {
           id: 2,
-          name: "Tanggal Peminjaman",
-          value: "created_date",
-          disabled: false,
-        },
-        {
-          id: 2,
-          name: "Tanggal Pengembalian",
-          value: "expected_return_date",
+          name: "Tanggal Janji Pengembalian",
+          value: "appointment_date",
           disabled: false,
         },
       ],

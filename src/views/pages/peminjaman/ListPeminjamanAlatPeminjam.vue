@@ -513,13 +513,13 @@ export default {
         { id: 1, name: "ID", value: "id", disabled: false },
         {
           id: 2,
-          name: "Tanggal Peminjaman",
+          name: "Waktu Peminjaman",
           value: "created_date",
           disabled: false,
         },
         {
           id: 2,
-          name: "Tanggal Pengembalian",
+          name: "Waktu Pengembalian",
           value: "expected_return_date",
           disabled: false,
         },
