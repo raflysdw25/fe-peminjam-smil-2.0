@@ -2,12 +2,22 @@
   <div class="list-booking-pengembalian">
     <h1 class="title-list">List Janji Laboratorium</h1>
     <div class="button-group">
-      <button
-        class="smil-btn smil-bg-primary mx-3"
-        @click="openSubmit('create')"
-      >
-        Buat Janji
-      </button>
+      <span id="create-booking">
+        <button
+          class="smil-btn smil-bg-primary mx-3"
+          @click="openSubmit('create')"
+          :disabled="!availablePeminjamanReturned"
+        >
+          Buat Janji
+        </button>
+      </span>
+      <b-tooltip target="create-booking" triggers="hover">
+        {{
+          !availablePeminjamanReturned
+            ? "Tidak ada peminjaman yang dapat dikembalikan"
+            : "Buat Janji"
+        }}
+      </b-tooltip>
       <button
         class="smil-btn smil-bg-danger"
         @click="$router.push({ name: 'BerandaPeminjaman' })"
@@ -336,6 +346,7 @@ export default {
     return {
       // Loading State
       loadingData: false,
+      availablePeminjamanReturned: false,
       // Filter Data
       paginationData: {
         listTotal: 0,
@@ -406,6 +417,8 @@ export default {
     };
   },
   async mounted() {
+    this.loadingData = true;
+    await this.availablePeminjaman();
     await this.getListBookingPengembalian();
   },
   watch: {
@@ -470,6 +483,31 @@ export default {
         this.paginationData.totalPage = page.total;
         this.paginationData.listTotal = page.data_total;
         this.loadingData = false;
+      } catch (e) {
+        this.loadingData = false;
+        let message = this.getErrorMessage(e);
+        if (typeof message == "object" && message.length > 0) {
+          setTimeout(() => {
+            this.popupAlert(false, false, "Terjadi Kesalahan", message);
+          }, 500);
+        } else {
+          this.popupAlert(false, false, message);
+        }
+      }
+    },
+    async availablePeminjaman() {
+      this.loadingData = true;
+      if (this.isFilterUse && this.paginationData.pageNo > 1) {
+        this.paginationData.pageNo = 1;
+      }
+      // Nembak API Get List Alat
+      try {
+        let payloadUser = {
+          nomor_induk: this.peminjamData.nomor_induk,
+          is_mahasiswa: this.peminjamData.is_mahasiswa,
+        };
+        const response = await api.availableReturnedPeminjaman(payloadUser);
+        this.availablePeminjamanReturned = response.data.data;
       } catch (e) {
         this.loadingData = false;
         let message = this.getErrorMessage(e);

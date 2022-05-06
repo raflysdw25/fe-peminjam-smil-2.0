@@ -53,4 +53,8 @@ export default {
   returnPeminjaman(peminjamanId) {
     return peminjam_api.put(`return-peminjaman/${peminjamanId}`);
   },
+
+  availableReturnedPeminjaman(payload) {
+    return peminjam_api.post(`available-return-peminjaman`, payload);
+  },
 };
